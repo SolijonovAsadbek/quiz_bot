@@ -9,7 +9,8 @@ from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import Message
 
-# Bot token can be obtained via https://t.me/BotFather
+from dotenv import load_dotenv
+load_dotenv()
 TOKEN = getenv("BOT_TOKEN")
 dp = Dispatcher()
 

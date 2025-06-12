@@ -16,6 +16,7 @@ class User(Base):
     chat_id = Column(BigInteger, unique=True)
     fullname = Column(String(50), nullable=False)
     phone = Column(String(12))
+    lang = Column(String(2), server_default='uz', nullable=False)
 
     def save(self, session):
         session.add(self)

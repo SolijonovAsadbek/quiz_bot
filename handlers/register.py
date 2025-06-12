@@ -1,13 +1,13 @@
-import re
 from aiogram import Router, F, html
 from aiogram.filters import Command
 from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 
-from keyboards.reply.button import confirm_button, share_contact
+from keyboards.reply.button import confirm_button, share_contact, menu
 from states.register import RegisterState
 from utils.db.database import User, session
 from utils.helper import check_register
+from aiogram.utils.i18n import gettext as _
 
 register_router = Router()
 
@@ -15,7 +15,7 @@ register_router = Router()
 @register_router.message(Command('register'))
 @check_register
 async def register_start(message: Message, state: FSMContext):
-    await message.answer('To`liq ismingiz: ')
+    await message.answer(_('To`liq ismingiz: '))
     # 1-qadam
     await state.set_state(RegisterState.fullname)
 
@@ -25,7 +25,7 @@ async def fullname_handler(message: Message, state: FSMContext):
     fullname = message.text
     # filter
     await state.update_data(fullname=fullname)
-    await message.answer('Telefon raqamingizni kiriting!', reply_markup=share_contact())
+    await message.answer(_('Telefon raqamingizni kiriting!'), reply_markup=share_contact())
     await state.set_state(RegisterState.phone)
 
 
@@ -42,10 +42,14 @@ async def phone_handler(message: Message, state: FSMContext):
     fullname = datas.get('fullname')
     phone = phone_number
     user_chat_id = message.from_user.id
-    user_data = (f"To'liq ism: {html.bold(fullname)}\n"
-                 f"Telefon: {html.bold(phone)}\n"
-                 f"Chat ID: {html.bold(user_chat_id)}\n")
-    await message.answer(f'Ma`lumotlaringizni tasdiqlaysizmi?\n\n{user_data}', reply_markup=confirm_button())
+    user_data = _("Ma`lumotlaringizni tasdiqlaysizmi?\n\n"
+                  "To'liq ism: {fullname}\n"
+                  "Telefon: {phone}\n"
+                  "Chat ID: {user_id}\n").format(fullname=html.bold(fullname),
+                                                 phone=html.bold(phone),
+                                                 user_id=html.bold(user_chat_id))
+
+    await message.answer(user_data, reply_markup=confirm_button())
     await state.set_state(RegisterState.confirm)
 
 
@@ -53,7 +57,7 @@ async def phone_handler(message: Message, state: FSMContext):
 async def confirm_handler(message: Message, state: FSMContext):
     confirm = message.text
 
-    if confirm.casefold() == 'ha':
+    if confirm.casefold() == _('ha'):
         datas = await state.get_data()
         fullname = datas.get('fullname')
         phone = datas.get('phone')
@@ -63,13 +67,13 @@ async def confirm_handler(message: Message, state: FSMContext):
         user = User(fullname=fullname, phone=phone, chat_id=user_chat_id)
         user.save(session)
 
-        await message.answer('Botdan foydalanishga xush kelibsiz!', reply_markup=ReplyKeyboardRemove())
+        await message.answer(_('Botdan foydalanishga xush kelibsiz!'), reply_markup=menu())
         await state.clear()
 
     # Yoq: /register ga qaytaramiz!
-    elif confirm.casefold() == 'yo`q':
-        await message.answer('Qayta ro`yxatdan o`tish uchun  👉 /register kamandasini bosing',
+    elif confirm.casefold() == _('yo`q'):
+        await message.answer(_('Qayta ro`yxatdan o`tish uchun  👉 /register kamandasini bosing'),
                              reply_markup=ReplyKeyboardRemove())
         await state.clear()
     else:
-        await message.reply('Ha yoki Yo`q bilan tasdiqlang iltimos!')
+        await message.reply(_('Ha yoki Yo`q bilan tasdiqlang iltimos!'))

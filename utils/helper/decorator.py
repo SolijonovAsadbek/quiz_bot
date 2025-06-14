@@ -16,5 +16,3 @@ def check_register(func):
                 await func(message)
 
     return wrapper
-
-

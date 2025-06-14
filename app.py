@@ -13,6 +13,7 @@ from dotenv import load_dotenv
 from middlewares.db_i18n import DatabaseI18nMiddleware
 from utils.notify_admins import bot_start_up, bot_shut_down
 from handlers import *
+from utils.set_commands import set_commands
 
 load_dotenv()
 TOKEN = getenv("BOT_TOKEN")
@@ -27,7 +28,7 @@ async def main() -> None:
 
     i18n = I18n(path="locales", default_locale="uz", domain="messages")
     dp.update.outer_middleware.register(DatabaseI18nMiddleware(i18n))
-
+    await set_commands(bot)
     await dp.start_polling(bot)
 
 

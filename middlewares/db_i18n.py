@@ -4,7 +4,7 @@ from aiogram.types import TelegramObject
 from aiogram.utils.i18n import I18nMiddleware
 
 from utils.db.database import session
-from utils.db_helper import get_user_db_lang
+from utils.helper.db import get_user_db_lang
 
 
 class DatabaseI18nMiddleware(I18nMiddleware):

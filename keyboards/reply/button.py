@@ -35,6 +35,7 @@ def menu():
         [
             KeyboardButton(text=_("Testlar")),
             KeyboardButton(text=_("Natijalar")),
+            KeyboardButton(text=_("Tilni o`zgartirish")),
 
         ]
     ]

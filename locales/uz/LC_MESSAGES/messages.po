@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-12 21:18+0500\n"
+"POT-Creation-Date: 2025-06-14 19:55+0500\n"
 "PO-Revision-Date: 2025-06-12 20:45+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: uz\n"
@@ -18,20 +18,32 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.13.1\n"
 
-#: handlers/menu.py:9
+#: handlers/menu.py:12 keyboards/reply/button.py:36
 msgid "Testlar"
 msgstr ""
 
-#: handlers/menu.py:11
+#: handlers/menu.py:14
 msgid "Barcha testlar"
 msgstr ""
 
-#: handlers/menu.py:14 keyboards/reply/button.py:37
+#: handlers/menu.py:17 keyboards/reply/button.py:37
 msgid "Natijalar"
 msgstr ""
 
-#: handlers/menu.py:16
+#: handlers/menu.py:19
 msgid "Barcha Natijalar"
+msgstr ""
+
+#: handlers/menu.py:22 keyboards/reply/button.py:38
+msgid "Tilni o`zgartirish"
+msgstr ""
+
+#: handlers/menu.py:24
+msgid "Biror tilni tanlang:"
+msgstr ""
+
+#: handlers/menu.py:32
+msgid "Til {lang} ga o`zgardi!"
 msgstr ""
 
 #: handlers/register.py:18
@@ -60,7 +72,7 @@ msgstr ""
 msgid "ha"
 msgstr ""
 
-#: handlers/register.py:70 utils/helper.py:11
+#: handlers/register.py:70 utils/helper/decorator.py:11
 msgid "Botdan foydalanishga xush kelibsiz!"
 msgstr ""
 
@@ -76,11 +88,23 @@ msgstr ""
 msgid "Ha yoki Yo`q bilan tasdiqlang iltimos!"
 msgstr ""
 
-#: handlers/start.py:17
+#: handlers/start.py:16
 msgid ""
 "Salom, {name}!\n"
 "\n"
 " Ro'yxatdan o'tish uchun  👉 /register kamandasini bosing"
+msgstr ""
+
+#: keyboards/inline/button.py:7
+msgid "O'zbek"
+msgstr ""
+
+#: keyboards/inline/button.py:7
+msgid "Rus"
+msgstr ""
+
+#: keyboards/inline/button.py:7
+msgid "Ingliz"
 msgstr ""
 
 #: keyboards/reply/button.py:9
@@ -99,10 +123,6 @@ msgstr ""
 msgid "📲 Telefon ulashish"
 msgstr ""
 
-#: keyboards/reply/button.py:36
-msgid "Test yechish"
-msgstr ""
-
 #: utils/notify_admins.py:11
 msgid "Bot ishga tushdi!"
 msgstr ""
@@ -110,4 +130,7 @@ msgstr ""
 #: utils/notify_admins.py:19
 msgid "Bot o'chdi!"
 msgstr ""
+
+#~ msgid "Test yechish"
+#~ msgstr ""
 

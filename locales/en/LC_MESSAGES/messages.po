@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-12 21:18+0500\n"
+"POT-Creation-Date: 2025-06-14 19:55+0500\n"
 "PO-Revision-Date: 2025-06-12 20:45+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -18,21 +18,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.13.1\n"
 
-#: handlers/menu.py:9
+#: handlers/menu.py:12 keyboards/reply/button.py:36
 msgid "Testlar"
 msgstr "Tests"
 
-#: handlers/menu.py:11
+#: handlers/menu.py:14
 msgid "Barcha testlar"
 msgstr "All tests"
 
-#: handlers/menu.py:14 keyboards/reply/button.py:37
+#: handlers/menu.py:17 keyboards/reply/button.py:37
 msgid "Natijalar"
 msgstr "Results"
 
-#: handlers/menu.py:16
+#: handlers/menu.py:19
 msgid "Barcha Natijalar"
 msgstr "All results"
+
+#: handlers/menu.py:22 keyboards/reply/button.py:38
+msgid "Tilni o`zgartirish"
+msgstr "Change the language"
+
+#: handlers/menu.py:24
+msgid "Biror tilni tanlang:"
+msgstr "Choose a language:"
+
+#: handlers/menu.py:32
+msgid "Til {lang} ga o`zgardi!"
+msgstr "Language has changed to {lang}!"
 
 #: handlers/register.py:18
 msgid "To`liq ismingiz: "
@@ -60,7 +72,7 @@ msgstr ""
 msgid "ha"
 msgstr "yes"
 
-#: handlers/register.py:70 utils/helper.py:11
+#: handlers/register.py:70 utils/helper/decorator.py:11
 msgid "Botdan foydalanishga xush kelibsiz!"
 msgstr "Welcome to using the bot!"
 
@@ -76,7 +88,7 @@ msgstr "To re-register, click the 👉 /register command"
 msgid "Ha yoki Yo`q bilan tasdiqlang iltimos!"
 msgstr "Please confirm with Yes or No!"
 
-#: handlers/start.py:17
+#: handlers/start.py:16
 msgid ""
 "Salom, {name}!\n"
 "\n"
@@ -85,6 +97,18 @@ msgstr ""
 "Hello, {name}!\n"
 "\n"
 "To register, click the 👉 /register command"
+
+#: keyboards/inline/button.py:7
+msgid "O'zbek"
+msgstr "Uzbek"
+
+#: keyboards/inline/button.py:7
+msgid "Rus"
+msgstr "Russian"
+
+#: keyboards/inline/button.py:7
+msgid "Ingliz"
+msgstr "English"
 
 #: keyboards/reply/button.py:9
 msgid "Ha"
@@ -102,10 +126,6 @@ msgstr "Please use the button!"
 msgid "📲 Telefon ulashish"
 msgstr "📲 Share phone number"
 
-#: keyboards/reply/button.py:36
-msgid "Test yechish"
-msgstr "Testing"
-
 #: utils/notify_admins.py:11
 msgid "Bot ishga tushdi!"
 msgstr "Bot has started!"
@@ -113,4 +133,7 @@ msgstr "Bot has started!"
 #: utils/notify_admins.py:19
 msgid "Bot o'chdi!"
 msgstr "Bot has stopped!"
+
+#~ msgid "Test yechish"
+#~ msgstr "Testing"
 

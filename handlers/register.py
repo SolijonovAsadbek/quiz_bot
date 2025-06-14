@@ -1,4 +1,4 @@
-from aiogram import Router, F, html
+from aiogram import Router, html
 from aiogram.filters import Command
 from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
@@ -6,7 +6,7 @@ from aiogram.fsm.context import FSMContext
 from keyboards.reply.button import confirm_button, share_contact, menu
 from states.register import RegisterState
 from utils.db.database import User, session
-from utils.helper import check_register
+from utils.helper.decorator import check_register
 from aiogram.utils.i18n import gettext as _
 
 register_router = Router()

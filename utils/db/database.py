@@ -1,6 +1,6 @@
 from sqlalchemy import (create_engine, Column, Integer,
-                        String, BigInteger, ForeignKey)
-from sqlalchemy.orm import declarative_base, sessionmaker
+                        String, BigInteger, Boolean, DateTime, func, ForeignKey)
+from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 from data.config import PG_USER, PG_PASS, PG_HOST, PG_PORT, PG_DB
 
 engine = create_engine(f'postgresql+psycopg2://{PG_USER}:{PG_PASS}@{PG_HOST}:{PG_PORT}/{PG_DB}')
@@ -17,6 +17,8 @@ class User(Base):
     fullname = Column(String(50), nullable=False)
     phone = Column(String(12))
     lang = Column(String(2), server_default='uz', nullable=False)
+
+    user_answer = relationship('UserAnswer', back_populates='user')
 
     def save(self, session):
         session.add(self)
@@ -44,23 +46,67 @@ class User(Base):
         return f"{self.__class__.__name__}({self.id}, {self.fullname!r})"
 
 
-# class Category(Base):
-#     __tablename__ = 'category'
-#     id = Column(Integer, primary_key=True, autoincrement=True)
-#     name = Column(String, nullable=False)
-#
-#     def __repr__(self):
-#         return f"{self.__class__.__name__}({self.id}, {self.name!r})"
-#
-#
-# class Subcategory(Base):
-#     __tablename__ = 'subcategory'
-#     id = Column(Integer, primary_key=True, autoincrement=True)
-#     category_id = Column(Integer, ForeignKey('category.id'))
-#     name = Column(String, nullable=False)
-#
-#     def __repr__(self):
-#         return f"{self.__class__.__name__}({self.id}, {self.name!r})"
+class Category(Base):
+    __tablename__ = 'category'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    name = Column(String, nullable=False)
+
+    subcategory = relationship('Subcategory', back_populates='category')
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.id}, {self.name!r})"
+
+
+class Subcategory(Base):
+    __tablename__ = 'subcategory'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    category_id = Column(Integer, ForeignKey('category.id'))
+    name = Column(String, nullable=False)
+
+    quiz = relationship('Quiz', back_populates='subcategory')
+    category = relationship('Category', back_populates='subcategories')
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.id}, {self.name!r})"
+
+
+class Quiz(Base):
+    __tablename__ = 'quiz'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    text = Column(String(256), nullable=False)
+    subcategory_id = Column(Integer, ForeignKey('subcategory.id'))
+
+    option = relationship('Option', back_populates='quiz')
+    subcategory = relationship('Subcategory', back_populates='quizzes')
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.id}, {self.text!r})"
+
+
+class Option(Base):
+    __tablename__ = 'option'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    text = Column(String(50), nullable=False)
+    quiz_id = Column(Integer, ForeignKey('quiz.id'))
+    is_correct = Column(Boolean, default=False)
+
+    user_anwer = relationship('UserAnswer', back_populates='option')
+    quiz = relationship('Quiz', back_populates='options')
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.id}, {self.text!r})"
+
+
+class UserAnswer(Base):
+    __tablename__ = 'user_answer'
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey('users.id'))
+    quiz_id = Column(Integer, ForeignKey('quiz.id'))
+    option_id = Column(Integer, ForeignKey('option.id'))
+    answered_at = Column(DateTime, default=func.now())
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.id})"
 
 
 if __name__ == '__main__':

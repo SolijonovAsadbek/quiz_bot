@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-14 20:47+0500\n"
+"POT-Creation-Date: 2025-06-14 21:16+0500\n"
 "PO-Revision-Date: 2025-06-12 20:45+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -131,13 +131,22 @@ msgstr "Пожалуйста, используйте кнопку!"
 msgid "📲 Telefon ulashish"
 msgstr "📲 Поделиться телефоном"
 
-#: utils/notify_admins.py:11
+#: utils/notify_admins.py:12
 msgid "Bot ishga tushdi!"
 msgstr "Бот запущен!"
 
-#: utils/notify_admins.py:19
+#: utils/notify_admins.py:20
 msgid "Bot o'chdi!"
 msgstr "Бот остановлен!"
+
+#: utils/set_commands.py:9
+#, fuzzy
+msgid "Botni ishga tushirish"
+msgstr "Бот запущен!"
+
+#: utils/set_commands.py:10
+msgid "Yordam"
+msgstr "Помощь"
 
 #~ msgid "Test yechish"
 #~ msgstr "Тестирование"

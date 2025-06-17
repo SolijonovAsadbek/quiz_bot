@@ -25,10 +25,11 @@ async def main() -> None:
     dp.include_routers(start_router, register_router, menu_router)
     dp.startup.register(bot_start_up)
     dp.shutdown.register(bot_shut_down)
+    await set_commands(bot)
 
     i18n = I18n(path="locales", default_locale="uz", domain="messages")
     dp.update.outer_middleware.register(DatabaseI18nMiddleware(i18n))
-    await set_commands(bot)
+
     await dp.start_polling(bot)
 
 

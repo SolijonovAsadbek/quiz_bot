@@ -6,8 +6,8 @@ from data.config import PG_USER, PG_PASS, PG_HOST, PG_PORT, PG_DB
 engine = create_engine(f'postgresql+psycopg2://{PG_USER}:{PG_PASS}@{PG_HOST}:{PG_PORT}/{PG_DB}')
 
 Base = declarative_base()
-SessionLocal = sessionmaker(bind=engine)
-session = SessionLocal()
+Session = sessionmaker(bind=engine)
+
 
 
 class User(Base):
@@ -18,7 +18,7 @@ class User(Base):
     phone = Column(String(12))
     lang = Column(String(2), server_default='uz', nullable=False)
 
-    user_answers = relationship('UserAnswer', back_populates='user')
+    user_answers = relationship('UserAnswer', back_populates='user', cascade='all, delete-orphan')
 
     def save(self, session):
         session.add(self)
@@ -51,7 +51,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
 
-    subcategories = relationship('Subcategory', back_populates='category')
+    subcategories = relationship('Subcategory', back_populates='category', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.id}, {self.name!r})"
@@ -60,11 +60,11 @@ class Category(Base):
 class Subcategory(Base):
     __tablename__ = 'subcategory'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    category_id = Column(Integer, ForeignKey('category.id'))
+    category_id = Column(Integer, ForeignKey('category.id', ondelete='cascade'))
     name = Column(String, nullable=False)
 
     category = relationship('Category', back_populates='subcategories')
-    quizzes = relationship('Quiz', back_populates='subcategory')
+    quizzes = relationship('Quiz', back_populates='subcategory', cascade='all, delete-orphan')
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.id}, {self.name!r})"
@@ -74,10 +74,10 @@ class Quiz(Base):
     __tablename__ = 'quiz'
     id = Column(Integer, primary_key=True, autoincrement=True)
     text = Column(String(256), nullable=False)
-    subcategory_id = Column(Integer, ForeignKey('subcategory.id'))
+    subcategory_id = Column(Integer, ForeignKey('subcategory.id', ondelete='cascade'))
 
     subcategory = relationship('Subcategory', back_populates='quizzes')
-    options = relationship('Option', back_populates='quiz')
+    options = relationship('Option', back_populates='quiz', cascade='all, delete-orphan')
     user_answers = relationship('UserAnswer', back_populates='quiz')
 
     def __repr__(self):
@@ -88,7 +88,7 @@ class Option(Base):
     __tablename__ = 'option'
     id = Column(Integer, primary_key=True, autoincrement=True)
     text = Column(String(50), nullable=False)
-    quiz_id = Column(Integer, ForeignKey('quiz.id'))
+    quiz_id = Column(Integer, ForeignKey('quiz.id', ondelete='cascade'))
     is_correct = Column(Boolean, default=False)
 
     quiz = relationship('Quiz', back_populates='options')
@@ -102,23 +102,13 @@ class UserAnswer(Base):
     __tablename__ = 'user_answer'
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer, ForeignKey('users.id', ondelete='cascade'))
-    quiz_id = Column(Integer, ForeignKey('quiz.id'))
+    quiz_id = Column(Integer, ForeignKey('quiz.id', ondelete='cascade'))
     option_id = Column(Integer, ForeignKey('option.id'))
     answered_at = Column(DateTime, default=func.now())
 
-    user = relationship('User', back_populates='user_answers',  cascade='all, delete-orphan')
+    user = relationship('User', back_populates='user_answers')
     option = relationship('Option', back_populates='user_answers')
     quiz = relationship('Quiz', back_populates='user_answers')
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.id})"
-
-
-if __name__ == '__main__':
-    user = User(chat_id=1836679375, fullname='Asadbek Solijonov', phone='998911779116')
-    session.add(user)
-    # user = session.query(User).filter(1836679375 == User.chat_id).first()
-    # if user:
-    # user.fullname = 'Solijonov Asadbek'
-    # session.delete(user)
-    session.commit()

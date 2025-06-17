@@ -18,7 +18,7 @@ class User(Base):
     phone = Column(String(12))
     lang = Column(String(2), server_default='uz', nullable=False)
 
-    user_answer = relationship('UserAnswer', back_populates='user')
+    user_answers = relationship('UserAnswer', back_populates='user')
 
     def save(self, session):
         session.add(self)
@@ -51,7 +51,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String, nullable=False)
 
-    subcategory = relationship('Subcategory', back_populates='category')
+    subcategories = relationship('Subcategory', back_populates='category')
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.id}, {self.name!r})"
@@ -63,8 +63,8 @@ class Subcategory(Base):
     category_id = Column(Integer, ForeignKey('category.id'))
     name = Column(String, nullable=False)
 
-    quiz = relationship('Quiz', back_populates='subcategory')
     category = relationship('Category', back_populates='subcategories')
+    quizzes = relationship('Quiz', back_populates='subcategory')
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.id}, {self.name!r})"
@@ -76,8 +76,9 @@ class Quiz(Base):
     text = Column(String(256), nullable=False)
     subcategory_id = Column(Integer, ForeignKey('subcategory.id'))
 
-    option = relationship('Option', back_populates='quiz')
     subcategory = relationship('Subcategory', back_populates='quizzes')
+    options = relationship('Option', back_populates='quiz')
+    user_answers = relationship('UserAnswer', back_populates='quiz')
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.id}, {self.text!r})"
@@ -90,8 +91,8 @@ class Option(Base):
     quiz_id = Column(Integer, ForeignKey('quiz.id'))
     is_correct = Column(Boolean, default=False)
 
-    user_anwer = relationship('UserAnswer', back_populates='option')
     quiz = relationship('Quiz', back_populates='options')
+    user_answers = relationship('UserAnswer', back_populates='option')
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.id}, {self.text!r})"
@@ -100,10 +101,14 @@ class Option(Base):
 class UserAnswer(Base):
     __tablename__ = 'user_answer'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, ForeignKey('users.id'))
+    user_id = Column(Integer, ForeignKey('users.id', ondelete='cascade'))
     quiz_id = Column(Integer, ForeignKey('quiz.id'))
     option_id = Column(Integer, ForeignKey('option.id'))
     answered_at = Column(DateTime, default=func.now())
+
+    user = relationship('User', back_populates='user_answers',  cascade='all, delete-orphan')
+    option = relationship('Option', back_populates='user_answers')
+    quiz = relationship('Quiz', back_populates='user_answers')
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.id})"

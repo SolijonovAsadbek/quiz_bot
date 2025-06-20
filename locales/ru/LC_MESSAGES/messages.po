@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-14 21:16+0500\n"
+"POT-Creation-Date: 2025-06-19 21:01+0500\n"
 "PO-Revision-Date: 2025-06-12 20:45+0500\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -19,35 +19,27 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.13.1\n"
 
-#: handlers/menu.py:12 keyboards/reply/button.py:36
-msgid "Testlar"
-msgstr "Тесты"
+#: handlers/callbacks.py:18
+msgid "Subkategoriyalar"
+msgstr "Подкатегории"
 
-#: handlers/menu.py:14
+#: handlers/menu.py:21
 msgid "Barcha testlar"
 msgstr "Все тесты"
 
-#: handlers/menu.py:17 keyboards/reply/button.py:37
-msgid "Natijalar"
-msgstr "Результаты"
-
-#: handlers/menu.py:19
+#: handlers/menu.py:26
 msgid "Barcha Natijalar"
 msgstr "Все результаты"
 
-#: handlers/menu.py:22 keyboards/reply/button.py:40
-msgid "Tilni o`zgartirish"
-msgstr "Изменить язык"
-
-#: handlers/menu.py:27 handlers/menu.py:35 handlers/menu.py:38
+#: handlers/menu.py:34 handlers/menu.py:42 handlers/menu.py:45
 msgid "Biror tilni tanlang:"
 msgstr "Выберите язык:"
 
-#: handlers/menu.py:37
+#: handlers/menu.py:44
 msgid "Til {lang} ga o`zgardi!"
 msgstr "Язык изменился на {lang}!"
 
-#: handlers/menu.py:41
+#: handlers/menu.py:48
 msgid "Siz avval bu tilni tanlagansiz!"
 msgstr "⚠️ Вы сначала выбрали этот язык!"
 
@@ -103,15 +95,15 @@ msgstr ""
 "\n"
 "Чтобы зарегистрироваться, нажмите команду 👉 /register"
 
-#: keyboards/inline/button.py:7
+#: keyboards/inline/button.py:9
 msgid "O'zbek"
 msgstr "Узбек"
 
-#: keyboards/inline/button.py:7
+#: keyboards/inline/button.py:9
 msgid "Rus"
 msgstr "Русский"
 
-#: keyboards/inline/button.py:7
+#: keyboards/inline/button.py:9
 msgid "Ingliz"
 msgstr "Английский"
 
@@ -131,6 +123,18 @@ msgstr "Пожалуйста, используйте кнопку!"
 msgid "📲 Telefon ulashish"
 msgstr "📲 Поделиться телефоном"
 
+#: keyboards/reply/button.py:36
+msgid "Testlar"
+msgstr "Тесты"
+
+#: keyboards/reply/button.py:37
+msgid "Natijalar"
+msgstr "Результаты"
+
+#: keyboards/reply/button.py:40
+msgid "Tilni o`zgartirish"
+msgstr "Изменить язык"
+
 #: utils/notify_admins.py:12
 msgid "Bot ishga tushdi!"
 msgstr "Бот запущен!"
@@ -139,15 +143,12 @@ msgstr "Бот запущен!"
 msgid "Bot o'chdi!"
 msgstr "Бот остановлен!"
 
-#: utils/set_commands.py:9
-#, fuzzy
-msgid "Botni ishga tushirish"
-msgstr "Бот запущен!"
-
-#: utils/set_commands.py:10
-msgid "Yordam"
-msgstr "Помощь"
-
 #~ msgid "Test yechish"
 #~ msgstr "Тестирование"
+
+#~ msgid "Botni ishga tushirish"
+#~ msgstr "Бот запущен!"
+
+#~ msgid "Yordam"
+#~ msgstr "Помощь"
 

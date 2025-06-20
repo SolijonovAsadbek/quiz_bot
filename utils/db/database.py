@@ -1,5 +1,5 @@
 from sqlalchemy import (create_engine, Column, Integer,
-                        String, BigInteger, Boolean, DateTime, func, ForeignKey)
+                        String, BigInteger, Boolean, DateTime, func, ForeignKey, JSON)
 from sqlalchemy.orm import declarative_base, sessionmaker, relationship
 from data.config import PG_USER, PG_PASS, PG_HOST, PG_PORT, PG_DB
 
@@ -7,7 +7,7 @@ engine = create_engine(f'postgresql+psycopg2://{PG_USER}:{PG_PASS}@{PG_HOST}:{PG
 
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
-
+session = Session()
 
 
 class User(Base):
@@ -49,7 +49,7 @@ class User(Base):
 class Category(Base):
     __tablename__ = 'category'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    name = Column(String, nullable=False)
+    name = Column(JSON, nullable=False)
 
     subcategories = relationship('Subcategory', back_populates='category', cascade='all, delete-orphan')
 
@@ -61,7 +61,7 @@ class Subcategory(Base):
     __tablename__ = 'subcategory'
     id = Column(Integer, primary_key=True, autoincrement=True)
     category_id = Column(Integer, ForeignKey('category.id', ondelete='cascade'))
-    name = Column(String, nullable=False)
+    name = Column(JSON, nullable=False)
 
     category = relationship('Category', back_populates='subcategories')
     quizzes = relationship('Quiz', back_populates='subcategory', cascade='all, delete-orphan')
@@ -73,7 +73,7 @@ class Subcategory(Base):
 class Quiz(Base):
     __tablename__ = 'quiz'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    text = Column(String(256), nullable=False)
+    text = Column(JSON, nullable=False)
     subcategory_id = Column(Integer, ForeignKey('subcategory.id', ondelete='cascade'))
 
     subcategory = relationship('Subcategory', back_populates='quizzes')
@@ -87,7 +87,7 @@ class Quiz(Base):
 class Option(Base):
     __tablename__ = 'option'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    text = Column(String(50), nullable=False)
+    text = Column(JSON, nullable=False)
     quiz_id = Column(Integer, ForeignKey('quiz.id', ondelete='cascade'))
     is_correct = Column(Boolean, default=False)
 

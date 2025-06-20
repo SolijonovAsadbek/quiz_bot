@@ -30,14 +30,14 @@ def share_contact():
     return kb
 
 
-def menu():
+def menu(lang):
     keyboards = [
         [
-            KeyboardButton(text=_("Testlar")),
-            KeyboardButton(text=_("Natijalar")),
+            KeyboardButton(text=_("Testlar", locale=lang)),
+            KeyboardButton(text=_("Natijalar", locale=lang)),
         ],
         [
-            KeyboardButton(text=_("Tilni o`zgartirish")),
+            KeyboardButton(text=_("Tilni o`zgartirish", locale=lang)),
         ]
     ]
     kb = ReplyKeyboardMarkup(keyboard=keyboards, resize_keyboard=True)
